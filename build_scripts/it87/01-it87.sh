@@ -17,7 +17,7 @@ git checkout master
 DRIVER_V_PKG="$(git log -1 --format="%cs" | sed 's/-//g')"
 
 # Build driver
-make -j${CPU_COUNT}
+make -j${CPU_COUNT} KERNEL_BUILD=$KERNEL_DIR
 
 # Copy Kernel module and compress it
 mkdir -p $DRIVER_PACKAGE_DIR/lib/modules/${KERNEL_V}-mos/kernel/drivers/hwmon/
