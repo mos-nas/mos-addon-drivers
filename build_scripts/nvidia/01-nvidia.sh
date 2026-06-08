@@ -141,6 +141,15 @@ nvidia_driver() {
   cp -R /etc/OpenCL $DRIVER_PACKAGE_DIR/etc/
   cp -R /etc/vulkan $DRIVER_PACKAGE_DIR/etc/
 
+  mkdir -p $DRIVER_PACKAGE_DIR/usr/share/glvnd/egl_vendor.d /$DRIVER_PACKAGE_DIR/usr/share/egl/egl_external_platform.d
+  cp /usr/share/glvnd/egl_vendor.d/*nvidia*.json $DRIVER_PACKAGE_DIR/usr/share/glvnd/egl_vendor.d/
+  cp /usr/share/egl/egl_external_platform.d/*nvidia*.json $DRIVER_PACKAGE_DIR/usr/share/egl/egl_external_platform.d/
+
+  # Fix for gbm symlink
+  cd $DRIVER_PACKAGE_DIR/lib/x86_64-linux-gnu/gbm
+  rm -f nvidia-drm_gbm.so
+  ln -sf /lib/x86_64-linux-gnu/libnvidia-allocator.so.1 nvidia-drm_gbm.so
+
   # Add additional components
   dpkg --root=$DRIVER_PACKAGE_DIR --install $DRIVER_BUILD_DIR/libnvidia-container_${LIBNVIDIA_CONTAINER_V}-1+mos_amd64.deb
   dpkg --root=$DRIVER_PACKAGE_DIR --install $DRIVER_BUILD_DIR/nvidia-container-toolkit_${CONTAINER_TOOLKIT_V}-1+mos_amd64.deb
