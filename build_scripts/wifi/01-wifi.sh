@@ -13,7 +13,7 @@ cd $DRIVER_BUILD_DIR
 # Clone linux-firmware from GitHub
 git clone --depth 1 https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git $DRIVER_BUILD_DIR/firmware-source
 cd $DRIVER_BUILD_DIR/firmware-source
-DRIVER_V_PKG=$(git rev-parse --short HEAD)
+DRIVER_V_PKG=$KERNEL_V
 $DRIVER_BUILD_DIR/firmware-source/copy-firmware.sh $DRIVER_BUILD_DIR/linux-firmware
 
 # Copy firmware files
