@@ -11,9 +11,9 @@ mkdir $DRIVER_BUILD_DIR
 cd $DRIVER_BUILD_DIR
 
 # Get latest versions
-LIBNVIDIA_CONTAINER_JSON="$(curl -u ${GH_ACTOR}:${MOS_TOKEN} -s https://api.github.com/repos/ich777/mos-libnvidia-container/releases/latest)"
+LIBNVIDIA_CONTAINER_JSON="$(curl -u ${GH_ACTOR}:${MOS_TOKEN} -s https://api.github.com/repos/mos-nas/mos-libnvidia-container/releases/latest)"
 LIBNVIDIA_CONTAINER_V="$(echo "$LIBNVIDIA_CONTAINER_JSON" | jq -r '.tag_name' | sed 's/^v//')"
-CONTAINER_TOOLKIT_JSON="$(curl -u ${GH_ACTOR}:${MOS_TOKEN} -s https://api.github.com/repos/ich777/mos-nvidia-container-toolkit/releases/latest)"
+CONTAINER_TOOLKIT_JSON="$(curl -u ${GH_ACTOR}:${MOS_TOKEN} -s https://api.github.com/repos/mos-nas/mos-nvidia-container-toolkit/releases/latest)"
 CONTAINER_TOOLKIT_V="$(echo "$CONTAINER_TOOLKIT_JSON" | jq -r '.tag_name' | sed 's/^v//')"
 
 # Grab latest version
@@ -30,7 +30,7 @@ component_download() {
     --header "Accept: application/octet-stream" \
     --header "X-GitHub-Api-Version: 2022-11-28" \
     --output "$DRIVER_BUILD_DIR/$1_$2-1+mos_amd64.deb$4" \
-    "https://api.github.com/repos/ich777/mos-${1}/releases/assets/$3"
+    "https://api.github.com/repos/mos-nas/mos-${1}/releases/assets/$3"
   if [ "$4" == ".md5" ] ; then
     if [ "$(md5sum $DRIVER_BUILD_DIR/${1}_${2}-1+mos_amd64.deb | awk '{print $1}')" != "$(cat $DRIVER_BUILD_DIR/${1}_${2}-1+mos_amd64.deb${4})" ] ; then
       echo "Checksum error from file: ${1}_${2}-1+mos_amd64.deb${4}"
