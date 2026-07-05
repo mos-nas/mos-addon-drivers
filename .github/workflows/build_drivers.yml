@@ -56,7 +56,7 @@ jobs:
 
         # Get Kernel JSON
         KERNEL_JSON=$(curl -s --request GET \
-            --url "https://api.github.com/repos/mos-nas/mos-kernel/releases?per_page=50" \
+            --url "https://api.github.com/repos/${{ github.repository_owner }}/mos-kernel/releases?per_page=50" \
             --header "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
             --header "X-GitHub-Api-Version: 2022-11-28")
 
@@ -72,7 +72,7 @@ jobs:
             --header "Accept: application/octet-stream" \
             --header "X-GitHub-Api-Version: 2022-11-28" \
             --output "$WORK_DIR/$2" \
-            "https://api.github.com/repos/mos-nas/mos-kernel/releases/assets/$1"
+            "https://api.github.com/repos/${{ github.repository_owner }}/mos-kernel/releases/assets/$1"
         
           if [[ "$2" == *.md5 ]]; then
             echo "Checking md5"
