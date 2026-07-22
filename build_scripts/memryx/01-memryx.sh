@@ -10,8 +10,11 @@ DRIVER_OUTPUT_DIR=$WORK_DIR/$KERNEL_V
 mkdir $DRIVER_BUILD_DIR
 cd $DRIVER_BUILD_DIR
 
+# Set MemryX SDK Version
+MEMRYX_SDK=2.1.0
+
 # Clone from Github, checkout master and get latest commit date
-git clone --depth 1 --branch v2.1.0 https://github.com/memryx/mx3_driver_pub $DRIVER_NAME
+git clone --depth 1 --branch v$MEMRYX_SDK https://github.com/memryx/mx3_driver_pub $DRIVER_NAME
 cd $DRIVER_BUILD_DIR/$DRIVER_NAME
 DRIVER_V_PKG="$(git log -1 --format="%cs" | sed 's/-//g')"
 
@@ -42,7 +45,7 @@ cp $DRIVER_BUILD_DIR/$DRIVER_NAME/firmware/* $DRIVER_PACKAGE_DIR/lib/firmware/
 rm -rf $DRIVER_PACKAGE_DIR/lib/firmware/*.md
 
 # Download install script
-wget -O $DRIVER_BUILD_DIR/install.sh "https://developer.memryx.com/deb/install_2p1.sh"
+wget -O $DRIVER_BUILD_DIR/install.sh "https://developer.memryx.com/deb/install_$MEMRYX_SDK.sh"
 
 # Extract files from install script
 ARCHIVE="$(awk '/^__ARCHIVE_SECTION__/ {print NR + 1; exit 0; }' $DRIVER_BUILD_DIR/install.sh)"
@@ -77,7 +80,7 @@ Package: ${DRIVER_NAME}-driver
 Version: $DRIVER_V_PKG
 Architecture: amd64
 Maintainer: ich777
-Description: MemryX drivers for MOS
+Description: MemryX (SDK v$MEMRYX_SDK) drivers for MOS
 EOF
 
 # Create Debian package and md5 checksum
