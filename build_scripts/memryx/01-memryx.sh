@@ -13,7 +13,7 @@ cd $DRIVER_BUILD_DIR
 # Clone from Github, checkout master and get latest commit date
 git clone --depth 1 https://github.com/memryx/mx3_driver_pub $DRIVER_NAME
 cd $DRIVER_BUILD_DIR/$DRIVER_NAME
-git checkout release
+git checkout v2.1.0
 DRIVER_V_PKG="$(git log -1 --format="%cs" | sed 's/-//g')"
 
 # Fix for missing headers
@@ -43,7 +43,7 @@ cp $DRIVER_BUILD_DIR/$DRIVER_NAME/firmware/* $DRIVER_PACKAGE_DIR/lib/firmware/
 rm -rf $DRIVER_PACKAGE_DIR/lib/firmware/*.md
 
 # Download install script
-wget -O $DRIVER_BUILD_DIR/install.sh "https://developer.memryx.com/deb/install.sh"
+wget -O $DRIVER_BUILD_DIR/install.sh "https://developer.memryx.com/deb/install_2p1.sh"
 
 # Extract files from install script
 ARCHIVE="$(awk '/^__ARCHIVE_SECTION__/ {print NR + 1; exit 0; }' $DRIVER_BUILD_DIR/install.sh)"
