@@ -11,7 +11,7 @@ mkdir $DRIVER_BUILD_DIR
 cd $DRIVER_BUILD_DIR
 
 # Clone from Github, checkout master and get latest commit date
-git clone --depth 1 https://github.com/memryx/mx3_driver_pub $DRIVER_NAME
+git clone --depth 1 --branch v2.1.0 https://github.com/memryx/mx3_driver_pub $DRIVER_NAME
 cd $DRIVER_BUILD_DIR/$DRIVER_NAME
 git checkout v2.1.0
 DRIVER_V_PKG="$(git log -1 --format="%cs" | sed 's/-//g')"
