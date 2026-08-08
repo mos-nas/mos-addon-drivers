@@ -13,7 +13,7 @@ cd $DRIVER_BUILD_DIR
 # Clone from Github, checkout master and get latest commit date
 git clone https://github.com/strongtz/i915-sriov-dkms sriov
 cd $DRIVER_BUILD_DIR/sriov
-if [[ "$KERNEL_V" == 6.19.* ]] ; then
+if [[ "$KERNEL_V" == 6.18.* || "$KERNEL_V" == 6.19.* ]]; then
   git checkout kernel-v6.19
 else
   git checkout master
