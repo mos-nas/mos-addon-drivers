@@ -36,7 +36,7 @@ jobs:
         fetch-depth: 1
 
     - name: Install dependencies
-      run: apt-get update && apt-get -y install build-essential flex bison libncurses-dev libssl-dev libelf-dev bc dwarves kmod squashfs-tools rsync git cpio xz-utils
+      run: apt-get update && apt-get -y install build-essential flex bison libncurses-dev libssl-dev libelf-dev bc dwarves kmod squashfs-tools rsync git cpio xz-utils apt install liburcu-dev libsodium-dev liblz4-dev libkeyutils-dev libunwind-dev libaio-dev cargo bindgen
 
     - name: Compile Drivers
       env:
