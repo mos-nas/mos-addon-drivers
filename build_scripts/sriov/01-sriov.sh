@@ -13,7 +13,11 @@ cd $DRIVER_BUILD_DIR
 # Clone from Github, checkout master and get latest commit date
 git clone https://github.com/strongtz/i915-sriov-dkms sriov
 cd $DRIVER_BUILD_DIR/sriov
-git checkout master
+if [[ "$KERNEL_V" == 6.18.* ]] ; then
+  git checkout kernel-v6.18
+else
+  git checkout master
+fi
 DRIVER_V_PKG="$(git log -1 --format="%cs" | sed 's/-//g')"
 
 # Build driver and install modules to package dir
